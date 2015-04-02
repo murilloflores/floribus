@@ -71,7 +71,8 @@
 
           <!-- Main line -->
           <div class="item item-next-hour item-icon-right" collection-repeat="line in mainLines">
-          <div ng-include="'lines_list_item.html'"> </div>
+            <!-- Important note: Using ng-include slows down the hole app. When launching the app, we should remove this includes, replacing them by the content itself -->
+            <div ng-include="'lines_list_item.html'"> </div>
           </div>
 
           <!-- Main line --> 
