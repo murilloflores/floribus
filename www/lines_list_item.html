@@ -18,7 +18,7 @@
 
 <div ng-class="{hidden: line.display}"> 
   <span class="line-name"> 
-    <ion-scroll direction="x" scrollbar-x="false" style="width: 100%">
+    <ion-scroll direction="x" delegate-handle="linename-scroll-{{line.id}}" scrollbar-x="false" style="width: 100%" on-release="resetScroll('linename-scroll-{{line.id}}')">
       <div> {{ line.number }} - {{ line.name }} </div>
     </ion-scroll>
   </span>

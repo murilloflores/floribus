@@ -17,7 +17,7 @@ angular.module('starter', ['ionic', 'txx.diacritics'])
     }
   });
 })
-.controller('MyCtrl', function($scope, $http, removeDiacritics) {
+.controller('MyCtrl', function($scope, $http, $ionicScrollDelegate, removeDiacritics) {
   
   $scope.allLines = [];
   $scope.mainLines = [];
@@ -108,7 +108,7 @@ angular.module('starter', ['ionic', 'txx.diacritics'])
     var searchStringPieces = searchString.toLowerCase().split(" ").filter(function(el) {return el.trim().length > 0} );
 
     var searcheable_field_string = line['searcheable_field'].join(' ');
-    
+
     for(var i=0; i< searchStringPieces.length; i++){
       var piece = searchStringPieces[i];
       if(searcheable_field_string.indexOf(piece) === -1){
@@ -202,6 +202,11 @@ angular.module('starter', ['ionic', 'txx.diacritics'])
 
   $scope.expandHour = function(line) {
     line.display = !line.display;
+  };
+
+  $scope.resetScroll = function(scrollId){
+      var delegate = $ionicScrollDelegate.$getByHandle(scrollId);
+      delegate.scrollTo(0,0,true);
   };
 
   // Calling main function 
