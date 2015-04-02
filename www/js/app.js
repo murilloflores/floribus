@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic'])
+angular.module('starter', ['ionic', 'txx.diacritics'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -17,7 +17,7 @@ angular.module('starter', ['ionic'])
     }
   });
 })
-.controller('MyCtrl', function($scope, $http) {
+.controller('MyCtrl', function($scope, $http, removeDiacritics) {
   
   $scope.allLines = [];
   $scope.mainLines = [];
@@ -80,7 +80,6 @@ angular.module('starter', ['ionic'])
 
   $scope.searchKeypress = function(event){
     if(event.keyCode === 13){
-      console.log($scope.searchForm.query);
       $scope.searchResults = doSearch();
     }
   };
@@ -105,10 +104,14 @@ angular.module('starter', ['ionic'])
       return true;
     }
 
-    var pieces = $scope.searchForm.query.toLowerCase().split(" ").filter(function(el) {return el.trim().length > 0} );
-    for(var i=0; i< pieces.length; i++){
-      var piece = pieces[i];
-      if(line.name.toLowerCase().indexOf(piece) === -1){
+    var searchString = removeDiacritics.replace($scope.searchForm.query);
+    var searchStringPieces = searchString.toLowerCase().split(" ").filter(function(el) {return el.trim().length > 0} );
+
+    var searcheable_field_string = line['searcheable_field'].join(' ');
+    
+    for(var i=0; i< searchStringPieces.length; i++){
+      var piece = searchStringPieces[i];
+      if(searcheable_field_string.indexOf(piece) === -1){
         return false;
       }
     }
