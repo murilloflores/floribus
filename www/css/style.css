@@ -21,7 +21,7 @@
 	text-decoration: none;
 }
 
-.single-hour {
+.single {
 	width: 50px;
 }
 
@@ -34,7 +34,7 @@
 	line-height: 40px;
 	font-weight: bold;
 	color: #00578f;
-	width: 40px;
+	width: 50px;
 }
 
 .inner-hour-list {

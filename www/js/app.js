@@ -135,6 +135,48 @@ angular.module('starter', ['ionic', 'txx.diacritics'])
   };
 
   function updateHours(line) {
+    var nextHoursForToday = getNextHoursForToday(line);
+    
+    if (nextHoursForToday.length >= 10){
+      line.nextHours = nextHoursForToday;
+    } else {
+      var nextDaysHours = getNextDaysHours(line, 10);
+      line.nextHours = nextHoursForToday.concat(nextDaysHours);
+    }
+
+    return line;
+  };
+
+  function getNextDaysHours(line, minimun) {
+    var day_kinds = ['3', '1', '1', '1', '1', '1', '2'];
+    
+    var nextDaysHours = [];
+    var nextDaysCount = 1;
+
+    while(nextDaysHours.length < minimun){
+      var currentDate = new Date(new Date().getTime() + (nextDaysCount * 24 * 60 * 60 * 1000));
+      var currentDayName = nextDaysCount == 1 ? 'Amanhã' : ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'][currentDate.getDay()];
+      var day_kind = day_kinds[currentDate.getDay()];
+      
+      if (!line.timetables.hasOwnProperty(day_kind)) {
+        nextDaysCount = nextDaysCount + 1;
+        continue;
+      }
+
+      var nextHours = line.timetables[day_kind]
+      for(var i = 0; i< nextHours.length; i++){
+        nextDaysHours.push({'hour': nextHours[i], 'label': currentDayName});
+      }
+
+      nextDaysCount = nextDaysCount + 1;
+
+    }
+
+    return nextDaysHours;
+
+  };
+
+  function getNextHoursForToday(line) {
     var day_kinds = ['3', '1', '1', '1', '1', '1', '2'];
     
     var now = new Date();
@@ -142,12 +184,16 @@ angular.module('starter', ['ionic', 'txx.diacritics'])
     var today_day_kind = day_kinds[now.getDay()];
 
     if (!line.timetables.hasOwnProperty(today_day_kind)) {
-      line.nexthours = null;
+      return [];
     } else {
-      line.nexthours = line.timetables[today_day_kind].filter(function(hour){ return hour > now_str });
+      var nextHours = line.timetables[today_day_kind].filter(function(hour){ return hour > now_str });
+      var nextHoursWithLabels = [];
+      for(var i = 0; i< nextHours.length; i++){
+        nextHoursWithLabels.push({'hour': nextHours[i], 'label': 'Hoje'});
+      }
+      return nextHoursWithLabels;
     }
 
-    return line;
   };
 
   $scope.addFavorite = function(line) {

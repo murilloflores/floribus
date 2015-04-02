@@ -1,16 +1,25 @@
-<a ng-if="!line.display && (line.nexthours == null || line.nexthours.length == 0)" class="next-hour-box single" href="#"> 
+<a ng-if="!line.display && (line.nextHours == null || line.nextHours.length == 0)" class="next-hour-box single" href="#"> 
   <div class="inner-hour center"> - </div> 
 </a>
 
-<a ng-if="!line.display && (line.nexthours != null && line.nexthours.length > 0)" class="next-hour-box single" href="#" ng-click="expandHour(line)"> 
-  <div class="inner-hour center" >{{ line.nexthours[0] }}</div> 
+<a ng-if="!line.display && (line.nextHours != null && line.nextHours.length > 0)" class="next-hour-box single" href="#" ng-click="expandHour(line)"> 
+  <div class="inner-hour center">
+    <div style=" line-height: 12px; font-size: 10px; font-weight:normal;"> {{ line.nextHours[0].label }} </div>
+    <div style=" line-height: 20px;"> {{ line.nextHours[0].hour }} </div>
+  </div> 
 </a>
 
 <a ng-if="line.display" class="next-hour-box multiple-hours" href="#" ng-click="expandHour(line)">
 
-  <ion-scroll direction="x" scrollbar-x="false" style="width: 100%; height: 40px;">
-    <div style="display: -webkit-inline-flex; height: 40px; line-height:40px; margin-top:1px;"> 
-      <div class="inner-hour inner-hour-list" ng-repeat="nexthour in line.nexthours"> {{ nexthour }}</div>
+  <ion-scroll direction="x" scrollbar-x="false" style="width: 100%; height: 40px; top: -5px;">
+
+    <div style="display: -webkit-inline-flex; height: 40px;"> 
+
+      <div class="inner-hour center inner-hour-list" ng-repeat="nexthour in line.nextHours"> 
+        <div style=" line-height: 12px; font-size: 10px; font-weight:normal;"> {{ nexthour.label }} </div>
+        <div style=" line-height: 20px;"> {{ nexthour.hour }} </div>
+      </div>
+
     </div>
   </ion-scroll>
 
