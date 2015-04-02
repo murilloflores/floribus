@@ -29,14 +29,23 @@ angular.module('starter', ['ionic'])
   $scope.searchForm = {};
 
   function init() {
-    $http.get('js/lines.json').then(function(response){
-
+    $http({
+      url: 'js/lines.json',
+      method: 'GET',
+      transformResponse: undefined
+    }).then(function(response){
+      var lines = response.data.split('\n');
       var tempAllLines = [];
       var favoriteLines = getFavoriteLinesFromLocalStorage();
 
-      for (i = 0; i < response.data.length; i++) { 
-        var line = response.data[i];
+      for (i = 0; i < lines.length; i++) { 
         
+        // When the input file is splitted, the last element is empty
+        if(lines[i].trim() === '') {
+          continue;
+        }
+
+        var line = JSON.parse(lines[i]);
         line.isFavorite = false;
         line.displayHours = false;
 
