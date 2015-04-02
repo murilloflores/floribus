@@ -50,35 +50,7 @@
 
         <div class="list" ng-if="searchActive">
         
-        <div class="item item-next-hour item-icon-right" ng-repeat="line in searchResults">
-            <a ng-if="!line.display && (line.nexthours == null || line.nexthours.length == 0)" class="next-hour-box single" href="#"> 
-              <div class="inner-hour center"> - </div> 
-            </a>
-
-            <a ng-if="!line.display && (line.nexthours != null && line.nexthours.length > 0)" class="next-hour-box single" href="#" ng-click="expandHour(line)"> 
-              <div class="inner-hour center" >{{ line.nexthours[0] }}</div> 
-            </a>
-
-            <a ng-if="line.display" class="next-hour-box multiple-hours" href="#" ng-click="expandHour(line)">
-
-              <ion-scroll direction="x" scrollbar-x="false" style="width: 100%; height: 40px;">
-                <div style="display: -webkit-inline-flex; height: 40px; line-height:40px; margin-top:1px;"> 
-                  <div class="inner-hour inner-hour-list" ng-repeat="nexthour in line.nexthours"> {{ nexthour }}</div>
-                </div>
-              </ion-scroll>
-
-            </a>
-
-            <div ng-class="{hidden: line.display}"> 
-              <span class="line-name"> {{ line.number }} - {{ line.name }} </span>
-              <span class="line-extra-info"> 
-                Saindo de {{ line.starting_at }}  
-                </span>
-            </div>
-            
-            <a href="#" ng-click="addFavorite(line)" ng-if="!line.display && !line.isFavorite"> <i class="icon ion-ios-star-outline favorite"> </i> </a>
-
-            <a href="#" ng-click="removeFavorite(line)" ng-if="!line.display && line.isFavorite"> <i class="icon ion-ios-star favorite"> </i> </a>
+          <div class="item item-next-hour item-icon-right" ng-repeat="line in searchResults" ng-include="'lines_list_item.html'">            
           </div>
 
         </div>        
@@ -88,35 +60,7 @@
 
           <div class="item item-divider" ng-if="favoriteLines.length > 0"> Favoritas </div>
 
-          <div class="item item-next-hour item-icon-right" ng-repeat="line in favoriteLines">
-            <a ng-if="!line.display && (line.nexthours == null || line.nexthours.length == 0)" class="next-hour-box single" href="#"> 
-              <div class="inner-hour center"> - </div> 
-            </a>
-
-            <a ng-if="!line.display && (line.nexthours != null && line.nexthours.length > 0)" class="next-hour-box single" href="#" ng-click="expandHour(line)"> 
-              <div class="inner-hour center" >{{ line.nexthours[0] }}</div> 
-            </a>
-
-            <a ng-if="line.display" class="next-hour-box multiple-hours" href="#" ng-click="expandHour(line)">
-
-              <ion-scroll direction="x" scrollbar-x="false" style="width: 100%; height: 40px;">
-                <div style="display: -webkit-inline-flex; height: 40px; line-height:40px; margin-top:1px;"> 
-                  <div class="inner-hour inner-hour-list" ng-repeat="nexthour in line.nexthours"> {{ nexthour }}</div>
-                </div>
-              </ion-scroll>
-
-            </a>
-
-            <div ng-class="{hidden: line.display}"> 
-              <span class="line-name"> {{ line.number }} - {{ line.name }} </span>
-              <span class="line-extra-info"> 
-                Saindo de {{ line.starting_at }}  
-                </span>
-            </div>
-            
-            <a href="#" ng-click="addFavorite(line)" ng-if="!line.display && !line.isFavorite"> <i class="icon ion-ios-star-outline favorite"> </i> </a>
-
-            <a href="#" ng-click="removeFavorite(line)" ng-if="!line.display && line.isFavorite"> <i class="icon ion-ios-star favorite"> </i> </a>
+          <div class="item item-next-hour item-icon-right" ng-repeat="line in favoriteLines" ng-include="'lines_list_item.html'">
           </div>
 
           <!-- All lines -->
@@ -127,39 +71,10 @@
 
           <!-- Main line -->
           <div class="item item-next-hour item-icon-right" collection-repeat="line in mainLines">
-
-            <a ng-if="!line.display && (line.nexthours == null || line.nexthours.length == 0)" class="next-hour-box single" href="#"> 
-              <div class="inner-hour center"> - </div> 
-            </a>
-
-            <a ng-if="!line.display && (line.nexthours != null && line.nexthours.length > 0)" class="next-hour-box single" href="#" ng-click="expandHour(line)"> 
-              <div class="inner-hour center" >{{ line.nexthours[0] }}</div> 
-            </a>
-
-            <a ng-if="line.display" class="next-hour-box multiple-hours" href="#" ng-click="expandHour(line)">
-
-              <ion-scroll direction="x" scrollbar-x="false" style="width: 100%; height: 40px;">
-                <div style="display: -webkit-inline-flex; height: 40px; line-height:40px; margin-top:1px;"> 
-                  <div class="inner-hour inner-hour-list" ng-repeat="nexthour in line.nexthours"> {{ nexthour }}</div>
-                </div>
-              </ion-scroll>
-
-            </a>
-
-            <div ng-class="{hidden: line.display}"> 
-              <span class="line-name"> {{ line.number }} - {{ line.name }} </span>
-              <span class="line-extra-info"> 
-                Saindo de {{ line.starting_at }}  
-                </span>
-            </div>
-            
-            <a href="#" ng-click="addFavorite(line)" ng-if="!line.display && !line.isFavorite"> <i class="icon ion-ios-star-outline favorite"> </i> </a>
-
-            <a href="#" ng-click="removeFavorite(line)" ng-if="!line.display && line.isFavorite"> <i class="icon ion-ios-star favorite"> </i> </a>
-
+          <div ng-include="'lines_list_item.html'"> </div>
           </div>
 
-          <!-- Main line -> 
+          <!-- Main line --> 
 
         </div>
 
