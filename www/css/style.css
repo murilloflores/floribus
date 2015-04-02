@@ -1,0 +1,70 @@
+/* Empty. Add your own CSS if you like */
+
+.clear-bottom-list {
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+
+.center {
+	text-align: center;
+}
+
+.item-next-hour {
+	padding-left: 65px;
+	height: 70px;
+}
+
+.next-hour-box {
+	position: absolute; 
+	left: 11px; 
+	height: 40px;
+	text-decoration: none;
+}
+
+.single-hour {
+	width: 50px;
+}
+
+.multiple-hours {
+	width: 100%;
+}
+
+.inner-hour{
+	float:left;
+	line-height: 40px;
+	font-weight: bold;
+	color: #00578f;
+	width: 40px;
+}
+
+.inner-hour-list {
+	margin-right: 15px; 
+}
+
+.hidden {
+	visibility: hidden;
+}
+
+.item-next-hour div span {
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: #29a9dd;
+}
+
+.item-next-hour div span.line-name {
+	font-size: 16px;
+	line-height: 18px;
+}
+
+.item-next-hour div span.line-extra-info {
+	font-size: 12px;
+	line-height: 14px;
+}
+
+.item-icon-right .favorite {
+	font-size: 20px;
+	color: #29a9dd;
+	padding-top:12px;
+}
+
