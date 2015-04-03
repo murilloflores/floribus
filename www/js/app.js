@@ -17,7 +17,7 @@ angular.module('starter', ['ionic', 'txx.diacritics'])
     }
   });
 })
-.controller('MyCtrl', function($scope, $http, $ionicScrollDelegate, removeDiacritics) {
+.controller('MyCtrl', function($scope, $http, $ionicScrollDelegate, $timeout, removeDiacritics) {
   
   $scope.allLines = [];
   $scope.mainLines = [];
@@ -60,7 +60,6 @@ angular.module('starter', ['ionic', 'txx.diacritics'])
 
       refreshFavoriteAndMainLines();
       refreshAllLinesHours();
-
     });
   };
 
@@ -143,6 +142,9 @@ angular.module('starter', ['ionic', 'txx.diacritics'])
       var nextDaysHours = getNextDaysHours(line, 10);
       line.nextHours = nextHoursForToday.concat(nextDaysHours);
     }
+
+    //Just a stub
+    line.previousHours = [{'hour': '10:10','label': 'Hoje'},{'hour': '11:11','label': 'Hoje'},{'hour': '15:15','label': 'Hoje'}]
 
     return line;
   };
@@ -245,9 +247,27 @@ angular.module('starter', ['ionic', 'txx.diacritics'])
 
   };
 
-
   $scope.expandHour = function(line) {
     line.display = !line.display;
+
+    if (!line.display) {
+      $scope.scrollScroll(line);
+    }
+
+  };
+
+  $scope.scrollScroll = function(line) {
+
+    // Using collection-repeat (ionic specific) causes the first execution to receive a undefined element
+    // See http://forum.ionicframework.com/t/v1-0-0-beta-11-collection-repeat-doesnt-work-with-directives/8267/18
+    if (line === undefined){ return };
+
+    $timeout(function() {
+      var scrollId = 'nexthours-scroll-' + line.id;
+      var delegate = $ionicScrollDelegate.$getByHandle(scrollId);
+      var yPosition = (line.previousHours.length * 65);
+      delegate.scrollTo(yPosition); 
+    });
   };
 
   $scope.resetScroll = function(scrollId){

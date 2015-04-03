@@ -21,6 +21,10 @@
 	text-decoration: none;
 }
 
+.previous-hour {
+	color:red !important;
+}
+
 .single {
 	width: 50px;
 }
