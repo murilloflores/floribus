@@ -145,7 +145,15 @@ angular.module('starter', ['ionic', 'txx.diacritics'])
     }
 
     //Just a stub
-    line.previousHours = [{'hour': '10:10','label': 'Hoje'},{'hour': '11:11','label': 'Hoje'},{'hour': '16:16','label': 'Hoje'}]
+    var previousHoursForToday = getPreviousHoursForToday(line);
+    if (previousHoursForToday.length > 2){
+      line.previousHours = previousHoursForToday.slice(-3);
+    } else {
+      var nextDayPreviousHours = getPreviousDaysHours(line, 3 - previousHoursForToday.length);
+      line.previousHours = nextDayPreviousHours.concat(previousHoursForToday);
+    }    
+
+    // line.previousHours = [{'hour': '10:10','label': 'Hoje'},{'hour': '11:11','label': 'Hoje'},{'hour': '16:16','label': 'Hoje'}]
 
     return line;
   };
@@ -179,6 +187,39 @@ angular.module('starter', ['ionic', 'txx.diacritics'])
 
   };
 
+
+  function getPreviousDaysHours(line, minimun) {
+    var day_kinds = ['3', '1', '1', '1', '1', '1', '2'];
+    
+    var nextDaysHours = [];
+    var nextDaysCount = 1;
+
+    while(nextDaysHours.length < minimun){
+      var currentDate = new Date(new Date().getTime() - (nextDaysCount * 24 * 60 * 60 * 1000));
+      var currentDayName = nextDaysCount == 1 ? 'Ontem' : ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'][currentDate.getDay()];
+      var day_kind = day_kinds[currentDate.getDay()];
+      
+      if (!line.timetables.hasOwnProperty(day_kind)) {
+        nextDaysCount = nextDaysCount + 1;
+        continue;
+      }
+
+      var nextHours = line.timetables[day_kind]
+      var currentNextDayHours = [];
+      for(var i = 0; i< nextHours.length; i++){
+        currentNextDayHours.push({'hour': nextHours[i], 'label': currentDayName});
+      }
+
+      nextDaysHours = currentNextDayHours.concat(nextDaysHours);
+
+      nextDaysCount = nextDaysCount + 1;
+
+    }
+
+    return nextDaysHours.slice((minimun * -1));
+
+  };
+
   function getNextHoursForToday(line) {
     var day_kinds = ['3', '1', '1', '1', '1', '1', '2'];
     
@@ -198,6 +239,27 @@ angular.module('starter', ['ionic', 'txx.diacritics'])
     }
 
   };
+
+  function getPreviousHoursForToday(line) {
+    var day_kinds = ['3', '1', '1', '1', '1', '1', '2'];
+    
+    var now = new Date();
+    var now_str = now.toTimeString().substr(0,5)
+    var today_day_kind = day_kinds[now.getDay()];
+
+    if (!line.timetables.hasOwnProperty(today_day_kind)) {
+      return [];
+    } else {
+      var nextHours = line.timetables[today_day_kind].filter(function(hour){ return hour < now_str });
+      var nextHoursWithLabels = [];
+      for(var i = 0; i< nextHours.length; i++){
+        nextHoursWithLabels.push({'hour': nextHours[i], 'label': 'Hoje'});
+      }
+      return nextHoursWithLabels;
+    }
+
+  };
+
 
   $scope.addFavorite = function(line) {
     line.isFavorite = true;
