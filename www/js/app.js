@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic', 'txx.diacritics'])
+angular.module('nalata', ['ionic', 'txx.diacritics'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -17,7 +17,7 @@ angular.module('starter', ['ionic', 'txx.diacritics'])
     }
   });
 })
-.controller('MyCtrl', function($scope, $http, $ionicScrollDelegate, $timeout, removeDiacritics) {
+.controller('NalataCtrl', function($scope, $http, $ionicScrollDelegate, $timeout, removeDiacritics) {
   
   $scope.allLines = [];
   $scope.mainLines = [];
@@ -129,98 +129,97 @@ angular.module('starter', ['ionic', 'txx.diacritics'])
     
     for (var i = 0; i < $scope.allLines.length; i++) { 
       line = $scope.allLines[i];
-      updateHours(line);
+      updatePreviousAndNextHours(line);
     }
 
   };
 
-  function updateHours(line) {
-    var nextHoursForToday = getNextHoursForToday(line);
-    
-    if (nextHoursForToday.length >= 10){
-      line.nextHours = nextHoursForToday;
-    } else {
-      var nextDaysHours = getNextDaysHours(line, 10);
-      line.nextHours = nextHoursForToday.concat(nextDaysHours);
-    }
-
-    //Just a stub
-    var previousHoursForToday = getPreviousHoursForToday(line);
-    if (previousHoursForToday.length > 2){
-      line.previousHours = previousHoursForToday.slice(-3);
-    } else {
-      var nextDayPreviousHours = getPreviousDaysHours(line, 3 - previousHoursForToday.length);
-      line.previousHours = nextDayPreviousHours.concat(previousHoursForToday);
-    }    
-
-    // line.previousHours = [{'hour': '10:10','label': 'Hoje'},{'hour': '11:11','label': 'Hoje'},{'hour': '16:16','label': 'Hoje'}]
-
+  function updatePreviousAndNextHours(line) {
+    updatePreviousHours(line);
+    updateNextHours(line);
     return line;
   };
 
-  function getNextDaysHours(line, minimun) {
+  function updatePreviousHours(line) {
+    line.previousHours = getLineHours(line, -1, 3, 3);
+  };
+
+  function updateNextHours(line){
+    line.nextHours = getLineHours(line, 1, 10);
+  };
+
+  function getLineHours(line, direction, minimum, maximum) {
+    var isPreviousHours = direction == -1;
+    var lineHours = getHoursForToday(line, isPreviousHours);
+
+    if (lineHours.length < minimum){
+
+      var difference = minimum - lineHours.length;
+      var otherDaysHours = getOtherDaysHours(line, direction, difference);
+
+      if(isPreviousHours){
+        lineHours = otherDaysHours.concat(lineHours); 
+      } else {
+        lineHours = lineHours.concat(otherDaysHours); 
+      }
+
+    }
+    
+    return lineHours.slice(0, maximum);
+
+  }
+
+  function getOtherDaysHours(line, direction, minimun) {
     var day_kinds = ['3', '1', '1', '1', '1', '1', '2'];
     
-    var nextDaysHours = [];
-    var nextDaysCount = 1;
+    var otherDaysHours = [];
+    var otherDayCount = 1 * direction;
 
-    while(nextDaysHours.length < minimun){
-      var currentDate = new Date(new Date().getTime() + (nextDaysCount * 24 * 60 * 60 * 1000));
-      var currentDayName = nextDaysCount == 1 ? 'Amanhã' : ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'][currentDate.getDay()];
+    while(otherDaysHours.length < minimun){
+      
+      var currentDate = new Date(new Date().getTime() + (direction * otherDayCount * 24 * 60 * 60 * 1000));
+      var currentDayName = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'][currentDate.getDay()];
+
+      if(otherDayCount == 1){
+        currentDayName = direction == 1 ? 'Amanhã' : 'Ontem';
+      }
+      
       var day_kind = day_kinds[currentDate.getDay()];
       
       if (!line.timetables.hasOwnProperty(day_kind)) {
-        nextDaysCount = nextDaysCount + 1;
+        otherDayCount = otherDayCount + (1 * direction);
         continue;
       }
 
       var nextHours = line.timetables[day_kind]
-      for(var i = 0; i< nextHours.length; i++){
-        nextDaysHours.push({'hour': nextHours[i], 'label': currentDayName});
+      if (direction == -1){
+        nextHours = nextHours.reverse();
       }
 
-      nextDaysCount = nextDaysCount + 1;
+      for(var i = 0; i < nextHours.length; i++){
+        if(direction == -1 ){
+          otherDaysHours.unshift({'hour': nextHours[i], 'label': currentDayName});
+        } else {
+          otherDaysHours.push({'hour': nextHours[i], 'label': currentDayName});
+        }
+      }
+
+      otherDayCount = otherDayCount + (1 * direction);
 
     }
 
-    return nextDaysHours;
+    if(direction == -1) {
+      return otherDaysHours.slice((minimun * -1)); 
+    }
+
+    return otherDaysHours.slice(0, minimun);
 
   };
 
-
-  function getPreviousDaysHours(line, minimun) {
-    var day_kinds = ['3', '1', '1', '1', '1', '1', '2'];
+  function getHoursForToday(line, previous) {
+    // If previous, return the previous hours. If not, return the next
+    previous = previous || false;
     
-    var nextDaysHours = [];
-    var nextDaysCount = 1;
-
-    while(nextDaysHours.length < minimun){
-      var currentDate = new Date(new Date().getTime() - (nextDaysCount * 24 * 60 * 60 * 1000));
-      var currentDayName = nextDaysCount == 1 ? 'Ontem' : ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'][currentDate.getDay()];
-      var day_kind = day_kinds[currentDate.getDay()];
-      
-      if (!line.timetables.hasOwnProperty(day_kind)) {
-        nextDaysCount = nextDaysCount + 1;
-        continue;
-      }
-
-      var nextHours = line.timetables[day_kind]
-      var currentNextDayHours = [];
-      for(var i = 0; i< nextHours.length; i++){
-        currentNextDayHours.push({'hour': nextHours[i], 'label': currentDayName});
-      }
-
-      nextDaysHours = currentNextDayHours.concat(nextDaysHours);
-
-      nextDaysCount = nextDaysCount + 1;
-
-    }
-
-    return nextDaysHours.slice((minimun * -1));
-
-  };
-
-  function getNextHoursForToday(line) {
     var day_kinds = ['3', '1', '1', '1', '1', '1', '2'];
     
     var now = new Date();
@@ -230,27 +229,18 @@ angular.module('starter', ['ionic', 'txx.diacritics'])
     if (!line.timetables.hasOwnProperty(today_day_kind)) {
       return [];
     } else {
-      var nextHours = line.timetables[today_day_kind].filter(function(hour){ return hour > now_str });
-      var nextHoursWithLabels = [];
-      for(var i = 0; i< nextHours.length; i++){
-        nextHoursWithLabels.push({'hour': nextHours[i], 'label': 'Hoje'});
-      }
-      return nextHoursWithLabels;
-    }
+      
+      var nextHours = line.timetables[today_day_kind].filter(
+        function(hour){
+          
+          if(previous){
+            return hour < now_str 
+          }
 
-  };
+          return hour > now_str
+        }
+      );
 
-  function getPreviousHoursForToday(line) {
-    var day_kinds = ['3', '1', '1', '1', '1', '1', '2'];
-    
-    var now = new Date();
-    var now_str = now.toTimeString().substr(0,5)
-    var today_day_kind = day_kinds[now.getDay()];
-
-    if (!line.timetables.hasOwnProperty(today_day_kind)) {
-      return [];
-    } else {
-      var nextHours = line.timetables[today_day_kind].filter(function(hour){ return hour < now_str });
       var nextHoursWithLabels = [];
       for(var i = 0; i< nextHours.length; i++){
         nextHoursWithLabels.push({'hour': nextHours[i], 'label': 'Hoje'});
