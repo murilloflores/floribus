@@ -79,10 +79,19 @@ angular.module('nalata', ['ionic', 'txx.diacritics'])
   };
 
   $scope.searchKeypress = function(event){
+
     if(event.keyCode === 13){
       $scope.searchResults = doSearch();
+    } else {
+      debouncedSearch();
     }
+
   };
+
+  var debouncedSearch = ionic.debounce(function(){
+    if ($scope.searchForm.query.length < 3){ return; }
+    $timeout(function(){ $scope.searchResults = doSearch(); });
+  }, 500);
 
   function doSearch() {
 
