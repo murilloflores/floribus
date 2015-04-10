@@ -47,7 +47,8 @@ angular.module('starter', ['ionic', 'txx.diacritics'])
 
         var line = JSON.parse(lines[i]);
         line.isFavorite = false;
-        line.displayHours = false;
+        line.renderNextHours = false;
+        line.showingNextHoursOnScreen = false;
 
         if(favoriteLines.indexOf(line.id) > -1) {
           line.isFavorite = true;
@@ -144,7 +145,7 @@ angular.module('starter', ['ionic', 'txx.diacritics'])
     }
 
     //Just a stub
-    line.previousHours = [{'hour': '10:10','label': 'Hoje'},{'hour': '11:11','label': 'Hoje'},{'hour': '15:15','label': 'Hoje'}]
+    line.previousHours = [{'hour': '10:10','label': 'Hoje'},{'hour': '11:11','label': 'Hoje'},{'hour': '16:16','label': 'Hoje'}]
 
     return line;
   };
@@ -247,13 +248,13 @@ angular.module('starter', ['ionic', 'txx.diacritics'])
 
   };
 
-  $scope.expandHour = function(line) {
-    line.display = !line.display;
+  $scope.showNextHours = function(line) {
+    line.renderNextHours = true;
+  };
 
-    if (!line.display) {
-      $scope.scrollScroll(line);
-    }
-
+  $scope.hideNextHours = function(line) {
+    line.renderNextHours = false;
+    line.showingNextHoursOnScreen = false;
   };
 
   $scope.scrollScroll = function(line) {
@@ -266,13 +267,13 @@ angular.module('starter', ['ionic', 'txx.diacritics'])
       var scrollId = 'nexthours-scroll-' + line.id;
       var delegate = $ionicScrollDelegate.$getByHandle(scrollId);
       var yPosition = (line.previousHours.length * 65);
-      delegate.scrollTo(yPosition); 
+      delegate.scrollTo(yPosition);
+      
+      $timeout(function() {
+        line.showingNextHoursOnScreen = true;
+      });
     });
-  };
 
-  $scope.resetScroll = function(scrollId){
-      var delegate = $ionicScrollDelegate.$getByHandle(scrollId);
-      delegate.scrollTo(0,0,true);
   };
 
   // Calling main function 
