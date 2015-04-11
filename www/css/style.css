@@ -91,3 +91,19 @@
   padding-top:12px;
 }
 
+.button-custom:before{
+  font-size: 26px !important;
+}
+
+.view-title { 
+  display: block;
+  line-height: 15px;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.view-subtitle {
+  display: block;
+  line-height: 20px;
+  font-size: 13px;
+}

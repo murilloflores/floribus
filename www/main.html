@@ -1,0 +1,57 @@
+<ion-view title="Nalata">
+  <ion-pane>
+    
+    <ion-content>
+
+      <ion-refresher pulling-text="" on-refresh="doRefresh()">
+      </ion-refresher>
+
+      <div class="list clear-bottom-list">
+
+
+        <div class="item item-input-inset">
+          <label class="item-input-wrapper">
+            <input type="text" placeholder="Buscar" ng-model="searchForm.query" ng-focus="onSearch()" ng-keyup="searchKeypress($event)">
+          </label>
+          <button class="button button-small" ng-if="searchActive" ng-click="outOfSearch()">
+            Cancelar
+          </button>
+        </div>
+
+      </div>
+
+      <div class="list" ng-if="searchActive">
+      
+        <div class="item item-next-hour item-icon-right" ng-repeat="line in searchResults" ng-include="'lines_list_item.html'">            
+        </div>
+
+      </div>        
+
+      <div class="list" ng-if="!searchActive">
+        <!-- Favoritos -->
+
+        <div class="item item-divider" ng-if="favoriteLines.length > 0"> Favoritas </div>
+
+        <div class="item item-next-hour item-icon-right" ng-repeat="line in favoriteLines" ng-include="'lines_list_item.html'">
+        </div>
+
+        <!-- All lines -->
+
+        <div class="item item-divider" ng-if="favoriteLines.length == 0"> Todas </div>
+        <div class="item item-divider" ng-if="favoriteLines.length > 0"> Demais </div>
+
+
+        <!-- Main line -->
+        <div class="item item-next-hour item-icon-right" collection-repeat="line in mainLines">
+          <!-- Important note: Using ng-include slows down the hole app. When launching the app, we should remove this includes, replacing them by the content itself -->
+          <div ng-include="'lines_list_item.html'"> </div>
+        </div>
+
+        <!-- Main line --> 
+
+      </div>
+
+    </ion-content>
+  </ion-pane>
+</ion-view>
+    
