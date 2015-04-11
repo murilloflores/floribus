@@ -1,11 +1,11 @@
 angular.module('nalata.controllers', ['txx.diacritics'])
 
-.controller('MenuCtrl', function($scope, $ionicModal) {
+.controller('MenuCtrl', function($scope) {
 
 })
 
 
-.controller('NalataCtrl', function($scope, $http, $ionicScrollDelegate, $timeout, removeDiacritics) {
+.controller('NalataCtrl', function($scope, $http, $ionicScrollDelegate, $timeout, $ionicModal , removeDiacritics) {
   
   $scope.allLines = [];
   $scope.mainLines = [];
@@ -13,10 +13,25 @@ angular.module('nalata.controllers', ['txx.diacritics'])
   $scope.searchResults = [];
   $scope.searchActive = false;
 
+  $scope.dayNames = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+  $scope.dayKinds = ['3', '1', '1', '1', '1', '1', '2'];
+  $scope.dayKindNames = { '1': 'Dias úteis', '2': 'Sábados', '3': 'Domingos e feriados'};
+
+  // Create the login modal that we will use later
+  $ionicModal.fromTemplateUrl('select_day_kind.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.selectDayModal = modal;
+  });
+
   // Workaround
   $scope.searchForm = {};
 
   function init() {
+
+    $scope.dayName = getDayName();
+    $scope.dayKind = getDayKind();
+    $scope.dayKindName = getDayKindName();
 
     $http({
       url: 'js/lines.json',
@@ -51,6 +66,24 @@ angular.module('nalata.controllers', ['txx.diacritics'])
       refreshFavoriteAndMainLines();
       refreshAllLinesHours();
     });
+  };
+
+  function getDayName(){
+    return $scope.dayNames[new Date().getDay()];
+  };
+
+  function getDayKind() {
+    return $scope.dayKind  || $scope.dayKinds[new Date().getDay()];
+  };
+
+  function getDayKindName() {
+    return $scope.dayKindNames[getDayKind()];
+  };
+
+  $scope.setDayKind = function(dayKind) {
+    $scope.dayKind = dayKind;
+    $scope.dayKindName = getDayKindName();
+    refreshAllLinesHours();
   };
 
   $scope.doRefresh = function(){
@@ -222,7 +255,7 @@ angular.module('nalata.controllers', ['txx.diacritics'])
     
     var now = new Date();
     var now_str = now.toTimeString().substr(0,5)
-    var today_day_kind = day_kinds[now.getDay()];
+    var today_day_kind = getDayKind();
 
     if (!line.timetables.hasOwnProperty(today_day_kind)) {
       return [];
@@ -325,6 +358,17 @@ angular.module('nalata.controllers', ['txx.diacritics'])
     });
 
   };
+
+  // Triggered in the login modal to close it
+  $scope.closeSelectDay = function() {
+    $scope.selectDayModal.hide();
+  };
+
+  // Open the login modal
+  $scope.selectDay = function() {
+    $scope.selectDayModal.show();
+  };
+
 
   // Calling main function 
   init();

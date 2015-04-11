@@ -1,6 +1,10 @@
 <ion-view title="Nalata">
-  <ion-pane>
     
+    <ion-nav-title>
+      <span class="view-title"> Nalata </span>
+      <span class="view-subtitle"> Horários de <span ng-click="selectDay()" class="daykind"> {{dayKindName}} <i class="ion-arrow-down-b"> </i> </span> </span>
+    </ion-nav-title>
+  
     <ion-content>
 
       <ion-refresher pulling-text="" on-refresh="doRefresh()">
@@ -51,7 +55,7 @@
 
       </div>
 
-    </ion-content>
-  </ion-pane>
+    </ion-content>"
+  
 </ion-view>
     

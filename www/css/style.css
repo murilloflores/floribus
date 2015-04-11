@@ -98,7 +98,7 @@
 .view-title { 
   display: block;
   line-height: 15px;
-  margin-top: 10px;
+  margin-top: 5px;
   font-weight: bold;
 }
 
@@ -106,4 +106,8 @@
   display: block;
   line-height: 20px;
   font-size: 13px;
+}
+
+.view-subtitle .daykind {
+
 }
