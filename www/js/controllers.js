@@ -204,7 +204,7 @@ angular.module('nalata.controllers', ['txx.diacritics'])
     var day_kinds = ['3', '1', '1', '1', '1', '1', '2'];
     
     var otherDaysHours = [];
-    var otherDayCount = 1 * direction;
+    var otherDayCount = 1 ;
 
     while(otherDaysHours.length < minimun){
       
@@ -218,11 +218,12 @@ angular.module('nalata.controllers', ['txx.diacritics'])
       var day_kind = day_kinds[currentDate.getDay()];
       
       if (!line.timetables.hasOwnProperty(day_kind)) {
-        otherDayCount = otherDayCount + (1 * direction);
+        otherDayCount = otherDayCount + 1;
         continue;
       }
 
-      var nextHours = line.timetables[day_kind]
+      var nextHours = angular.copy(line.timetables[day_kind]);
+      
       if (direction == -1){
         nextHours = nextHours.reverse();
       }
@@ -235,7 +236,7 @@ angular.module('nalata.controllers', ['txx.diacritics'])
         }
       }
 
-      otherDayCount = otherDayCount + (1 * direction);
+      otherDayCount = otherDayCount + 1;
 
     }
 
