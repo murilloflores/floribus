@@ -1,4 +1,4 @@
-<a ng-if="!line.showingNextHoursOnScreen" class="next-hour-box single" href="#" ng-click="showNextHours(line)"> 
+<a ng-class="{hidden: line.showingNextHoursOnScreen}" class="next-hour-box single" href="#" ng-click="showNextHours(line)"> 
   <div class="inner-hour-single center">
     <div style=" line-height: 12px; font-size: 10px; font-weight:normal;"> {{ line.nextHours[0].label }} </div>
     <div style=" line-height: 20px;"> {{ line.nextHours[0].hour }} </div>
@@ -33,6 +33,6 @@
     </span>
 </div>
 
-<a href="#" ng-click="addFavorite(line)" ng-if="!line.showingNextHoursOnScreen && !line.isFavorite"> <i class="icon ion-ios-star-outline favorite"> </i> </a>
+<a href="#" ng-click="addFavorite(line)" ng-class="{hidden: (line.showingNextHoursOnScreen || line.isFavorite)}"> <i class="icon ion-ios-star-outline favorite"> </i> </a>
 
-<a href="#" ng-click="removeFavorite(line)" ng-if="!line.showingNextHoursOnScreen && line.isFavorite"> <i class="icon ion-ios-star favorite"> </i> </a>
+<a href="#" ng-click="removeFavorite(line)" ng-class="{hidden: (line.showingNextHoursOnScreen || !line.isFavorite)}"> <i class="icon ion-ios-star favorite"> </i> </a>

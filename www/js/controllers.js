@@ -251,7 +251,7 @@ angular.module('nalata.controllers', ['txx.diacritics'])
   function getHoursForToday(line, previous) {
     // If previous, return the previous hours. If not, return the next
     previous = previous || false;
-    
+
     var day_kinds = ['3', '1', '1', '1', '1', '1', '2'];
     
     var now = new Date();
@@ -337,8 +337,10 @@ angular.module('nalata.controllers', ['txx.diacritics'])
   };
 
   $scope.hideNextHours = function(line) {
-    line.renderNextHours = false;
     line.showingNextHoursOnScreen = false;
+    // Since ng-if is faster than ng-class, we have to intentionally run it later.
+    // If we do not run it later, the elements 'flick' on the screen.
+    $timeout(function() { line.renderNextHours = false; }, 200);
   };
 
   $scope.scrollScroll = function(line) {
