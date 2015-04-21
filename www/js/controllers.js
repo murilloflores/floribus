@@ -196,8 +196,12 @@ angular.module('nalata.controllers', ['txx.diacritics'])
 
     }
     
-    return lineHours.slice(0, maximum);
+    if (direction == -1) {
+      return lineHours.slice(maximum * -1);
+    }
 
+    return lineHours.slice(0, maximum);
+    
   }
 
   function getOtherDaysHours(line, direction, minimun) {
@@ -277,6 +281,7 @@ angular.module('nalata.controllers', ['txx.diacritics'])
       for(var i = 0; i< nextHours.length; i++){
         nextHoursWithLabels.push({'hour': nextHours[i], 'label': 'Hoje'});
       }
+
       return nextHoursWithLabels;
     }
 
