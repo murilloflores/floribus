@@ -1,2 +1,2 @@
-/home/murillo/Desktop/horarios/app/platforms/android/ant-build/AndroidManifest.xml : \
-/home/murillo/Desktop/horarios/app/platforms/android/AndroidManifest.xml \
+/home/murillo/Projects/nalata/platforms/android/ant-build/AndroidManifest.xml : \
+/home/murillo/Projects/nalata/platforms/android/AndroidManifest.xml \

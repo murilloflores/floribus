@@ -1,0 +1,38 @@
+<a ng-class="{hidden: line.showingNextHoursOnScreen}" class="next-hour-box single" href="#" ng-click="showNextHours(line)"> 
+  <div class="inner-hour-single center">
+    <div style=" line-height: 12px; font-size: 10px; font-weight:normal;"> {{ line.nextHours[0].label }} </div>
+    <div style=" line-height: 20px;"> {{ line.nextHours[0].hour }} </div>
+  </div> 
+</a>
+
+<a ng-if="line.renderNextHours" ng-class="{hidden: !line.showingNextHoursOnScreen}" class="next-hour-box multiple-hours" href="#" ng-click="hideNextHours(line)" ng-init="scrollScroll(line);">
+
+  <ion-scroll delegate-handle="nexthours-scroll-{{line.id}}" direction="x" scrollbar-x="false" style="width: 100%; height: 30px;" class="vertical-center">
+
+    <div style="display: -webkit-inline-flex; height: 30px; position: absolute; top:0;"> 
+      <div class="inner-hour center inner-hour-list previous-hour" ng-repeat="nexthour in line.previousHours"> 
+        <div style=" line-height: 12px; font-size: 10px; font-weight:normal;"> {{ nexthour.label }} </div>
+        <div style=" line-height: 20px;"> {{ nexthour.hour }} </div>
+      </div>
+      <div class="inner-hour center inner-hour-list" ng-repeat="hour in line.nextHours"> 
+        <div style=" line-height: 12px; font-size: 10px; font-weight:normal;"> {{ hour.label }} </div>
+        <div style=" line-height: 20px;"> {{ hour.hour }} </div>
+      </div>
+
+    </div>
+  </ion-scroll>
+
+</a>
+
+<div ng-class="{hidden: line.showingNextHoursOnScreen}"> 
+  <span class="line-name"> 
+    {{ line.number }} - {{ line.name }}
+  </span>
+  <span class="line-extra-info"> 
+    Saindo de {{ line.starting_at }}  
+    </span>
+</div>
+
+<a href="#" ng-click="addFavorite(line)" ng-class="{hidden: (line.showingNextHoursOnScreen || line.isFavorite)}"> <i class="icon ion-ios-star-outline favorite"> </i> </a>
+
+<a href="#" ng-click="removeFavorite(line)" ng-class="{hidden: (line.showingNextHoursOnScreen || !line.isFavorite)}"> <i class="icon ion-ios-star favorite"> </i> </a>
