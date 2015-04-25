@@ -7,9 +7,9 @@
 
 <a ng-if="line.renderNextHours" ng-class="{hidden: !line.showingNextHoursOnScreen}" class="next-hour-box multiple-hours" href="#" ng-click="hideNextHours(line)" ng-init="scrollScroll(line);">
 
-  <ion-scroll delegate-handle="nexthours-scroll-{{line.id}}" direction="x" scrollbar-x="false" style="width: 100%; height: 30px;" class="vertical-center">
+  <ion-scroll delegate-handle="nexthours-scroll-{{line.id}}" direction="x" scrollbar-x="false" style="width: 100%; height: 100%;">
 
-    <div style="display: -webkit-inline-flex; height: 30px; position: absolute; top:0;"> 
+    <div style="display: -webkit-inline-flex; height: 30px; position: absolute; top:50%; margin-top:-15px;"> 
       <div class="inner-hour center inner-hour-list previous-hour" ng-repeat="nexthour in line.previousHours"> 
         <div style=" line-height: 12px; font-size: 10px; font-weight:normal;"> {{ nexthour.label }} </div>
         <div style=" line-height: 20px;"> {{ nexthour.hour }} </div>
