@@ -117,3 +117,8 @@
 .item-content-nalata {
   color: #00578f !important;
 }
+
+/*Ionic overrided stuff*/
+.scroll{
+  height:100% !important
+ }
