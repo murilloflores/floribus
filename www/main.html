@@ -2,7 +2,7 @@
     
     <ion-nav-title>
       <span class="view-title"> Nalata </span>
-      <span class="view-subtitle"> Horários de <span ng-click="selectDay()" class="daykind"> {{dayKindName}} <i class="ion-arrow-down-b"> </i> </span> </span>
+      <span class="view-subtitle" ng-click="selectDay()"> Horários de {{dayKindName}} <i class="ion-arrow-down-b"> </i> </span>
     </ion-nav-title>
   
     <ion-content>
@@ -11,8 +11,6 @@
       </ion-refresher>
 
       <div class="list clear-bottom-list">
-
-
         <div class="item item-input-inset">
           <label class="item-input-wrapper">
             <input type="text" placeholder="Buscar" ng-model="searchForm.query" ng-focus="onSearch()" ng-keyup="searchKeypress($event)">
