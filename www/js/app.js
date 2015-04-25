@@ -37,6 +37,19 @@ angular.module('nalata', ['ionic', 'nalata.controllers'])
     }
   })
 
+  .state('intro', {
+    url: "/intro",
+    templateUrl: "intro.html",
+    controller: 'IntroCtrl'
+  })
+
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/main');
+  var firstUsage = JSON.parse(window.localStorage['firstUsage'] || 'true');
+  console.log(firstUsage);
+  if (firstUsage ){
+    $urlRouterProvider.otherwise('/intro');
+  } else {
+    $urlRouterProvider.otherwise('/app/main');
+  }
+
 });

@@ -118,7 +118,30 @@
   color: #00578f !important;
 }
 
+.intro-slide {
+  margin: 20px;
+}
+
+.intro-slide-tip {
+
+}
+
 /*Ionic overrided stuff*/
+
 .scroll{
   height:100% !important
  }
+
+ .slider{
+  position: absolute;
+  top: 0;
+  bottom: 15px;
+  left: 0;
+  right: 0;
+}
+
+.slider-pager {
+  top: initial;
+  bottom: 0;
+  height: 20px;
+}

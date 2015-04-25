@@ -2,8 +2,34 @@ angular.module('nalata.controllers', ['txx.diacritics'])
 
 .controller('MenuCtrl', function($scope) {
 
+
 })
 
+
+.controller('IntroCtrl', function($scope, $state) {
+
+  // Called to navigate to the main app
+  $scope.startApp = function() {
+    window.localStorage['firstUsage'] = false;
+    $state.go('app.main');
+  };
+  $scope.next = function() {
+    $ionicSlideBoxDelegate.next();
+  };
+  $scope.previous = function() {
+    $ionicSlideBoxDelegate.previous();
+  };
+
+  // Called each time the slide changes
+  $scope.slideChanged = function(index) {
+    $scope.slideIndex = index;
+
+    gifs = ['','img/intro/proximos.gif','img/intro/anteriores.gif','img/intro/favoritos.gif']
+    $scope.currentGif = gifs[index];
+
+  };
+
+})
 
 .controller('NalataCtrl', function($scope, $http, $ionicScrollDelegate, $timeout, $ionicModal , removeDiacritics) {
   
