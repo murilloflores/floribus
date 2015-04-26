@@ -28,7 +28,7 @@ angular.module('nalata', ['ionic', 'nalata.controllers'])
   })
 
   .state('app.main', {
-    url: "/main",
+    url: "/main?reload",
     views: {
       'menuContent': {
         templateUrl: "main.html",
@@ -39,6 +39,7 @@ angular.module('nalata', ['ionic', 'nalata.controllers'])
 
   .state('intro', {
     url: "/intro",
+    cache: false, 
     templateUrl: "intro.html",
     controller: 'IntroCtrl'
   })

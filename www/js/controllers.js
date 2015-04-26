@@ -6,12 +6,12 @@ angular.module('nalata.controllers', ['txx.diacritics'])
 })
 
 
-.controller('IntroCtrl', function($scope, $state) {
+.controller('IntroCtrl', function($scope, $state, $timeout) {
 
   // Called to navigate to the main app
   $scope.startApp = function() {
     window.localStorage['firstUsage'] = false;
-    $state.go('app.main');
+    $state.go('app.main', { 'reload': true });
   };
   $scope.next = function() {
     $ionicSlideBoxDelegate.next();
@@ -31,7 +31,7 @@ angular.module('nalata.controllers', ['txx.diacritics'])
 
 })
 
-.controller('NalataCtrl', function($scope, $http, $ionicScrollDelegate, $timeout, $ionicModal , removeDiacritics) {
+.controller('NalataCtrl', function($scope, $state, $stateParams, $http, $ionicScrollDelegate, $timeout, $ionicModal , removeDiacritics) {
   
   $scope.allLines = [];
   $scope.mainLines = [];
@@ -54,6 +54,9 @@ angular.module('nalata.controllers', ['txx.diacritics'])
   $scope.searchForm = {};
 
   function init() {
+    if($stateParams['reload']) {
+      window.location = window.location.pathname;
+    }
 
     $scope.dayName = getDayName();
     $scope.dayKind = getDayKind();
