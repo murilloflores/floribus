@@ -1,7 +1,7 @@
 {
-  "name": "horarios",
+  "name": "nalata",
   "version": "1.0.0",
-  "description": "horarios: An Ionic project",
+  "description": "nalata: Horários de ônibus para Florianópolis.",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^0.7.1",
