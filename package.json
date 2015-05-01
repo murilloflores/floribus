@@ -1,7 +1,7 @@
 {
-  "name": "nalata",
+  "name": "floribus",
   "version": "1.0.0",
-  "description": "nalata: Horários de ônibus para Florianópolis.",
+  "description": "floribus: Horários de ônibus para Florianópolis.",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^0.7.1",

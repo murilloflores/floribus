@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.ionicframework.horarios643299" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>Nalata</name>
+  <name>Floribus</name>
   <description>
       Descubra qual o próximo horário do ônibus que você quer pegar.
   </description>
   <author email="nalataapp@gmail.com" href="http://example.org/">
-    Nalata team.
+    Floribus team.
   </author>
   <content src="index.html"/>
   <access origin="*"/>

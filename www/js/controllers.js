@@ -1,4 +1,4 @@
-angular.module('nalata.controllers', ['txx.diacritics'])
+angular.module('floribus.controllers', ['txx.diacritics'])
 
 .controller('MenuCtrl', function($scope) {
 
@@ -31,7 +31,7 @@ angular.module('nalata.controllers', ['txx.diacritics'])
 
 })
 
-.controller('NalataCtrl', function($scope, $state, $stateParams, $http, $ionicScrollDelegate, $timeout, $ionicModal , removeDiacritics) {
+.controller('FloribusCtrl', function($scope, $state, $stateParams, $http, $ionicScrollDelegate, $timeout, $ionicModal , removeDiacritics) {
   
   $scope.allLines = [];
   $scope.mainLines = [];
