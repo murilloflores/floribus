@@ -1,6 +1,6 @@
 {
   "name": "floribus",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "floribus: Horários de ônibus para Florianópolis.",
   "dependencies": {
     "gulp": "^3.5.6",
