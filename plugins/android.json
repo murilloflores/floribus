@@ -23,13 +23,13 @@
     },
     "installed_plugins": {
         "com.ionic.keyboard": {
-            "PACKAGE_NAME": "com.ionicframework.horarios643299"
+            "PACKAGE_NAME": "com.ionicframework.floribus623404"
         },
         "org.apache.cordova.console": {
-            "PACKAGE_NAME": "com.ionicframework.horarios643299"
+            "PACKAGE_NAME": "com.ionicframework.floribus623404"
         },
         "org.apache.cordova.device": {
-            "PACKAGE_NAME": "com.ionicframework.horarios643299"
+            "PACKAGE_NAME": "com.ionicframework.floribus623404"
         }
     },
     "dependent_plugins": {}
