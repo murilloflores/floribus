@@ -1,8 +1,7 @@
-angular.module('floribus.controllers', ['txx.diacritics'])
+angular.module('floribus.controllers', ['txx.diacritics', 'floribus.services'])
 
 .controller('MenuCtrl', function($scope) {
-
-
+  $scope.isAndroid = ionic.Platform.isAndroid();
 })
 
 
@@ -31,7 +30,7 @@ angular.module('floribus.controllers', ['txx.diacritics'])
 
 })
 
-.controller('FloribusCtrl', function($scope, $state, $stateParams, $http, $ionicScrollDelegate, $timeout, $ionicModal , removeDiacritics) {
+.controller('FloribusCtrl', function($scope, $state, $stateParams, $http, $ionicScrollDelegate, $timeout, $ionicModal , removeDiacritics, lines) {
   
   $scope.allLines = [];
   $scope.mainLines = [];
@@ -62,39 +61,12 @@ angular.module('floribus.controllers', ['txx.diacritics'])
     $scope.dayKind = getDayKind();
     $scope.dayKindName = getDayKindName();
 
-    $http({
-      url: 'js/lines.json',
-      method: 'GET',
-      transformResponse: undefined
-    }).then(function(response){
-      var lines = response.data.split('\n');
-      var tempAllLines = [];
-      var favoriteLines = getFavoriteLinesFromLocalStorage();
-
-      for (i = 0; i < lines.length; i++) { 
-        
-        // When the input file is splitted, the last element is empty
-        if(lines[i].trim() === '') {
-          continue;
-        }
-
-        var line = JSON.parse(lines[i]);
-        line.isFavorite = false;
-        line.renderNextHours = false;
-        line.showingNextHoursOnScreen = false;
-
-        if(favoriteLines.indexOf(line.id) > -1) {
-          line.isFavorite = true;
-        }
-
-        tempAllLines.push(line);
-      }
-
-      $scope.allLines = tempAllLines;
-
+    lines.getAllLines().then(function(allLines){
+      $scope.allLines = allLines;
       refreshFavoriteAndMainLines();
       refreshAllLinesHours();
     });
+
   };
 
   function getDayName(){
@@ -338,7 +310,7 @@ angular.module('floribus.controllers', ['txx.diacritics'])
   };
 
   function getFavoriteLinesFromLocalStorage() {
-    return JSON.parse(window.localStorage['favoriteLines'] || '[]');
+    lines.getFavoriteLines();
   };
 
   function setFavoriteLinesInLocalStorage(favoriteLines) {
@@ -406,8 +378,17 @@ angular.module('floribus.controllers', ['txx.diacritics'])
     $scope.selectDayModal.show();
   };
 
+  $scope.goToLine = function(line_id) {
+    $state.go('app.line', { id: line_id })
+  };
 
   // Calling main function 
   init();
+
+})
+
+.controller('LineCtrl', function($scope, $stateParams) {
+
+  $scope.id = $stateParams.id;
 
 })

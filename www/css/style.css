@@ -126,6 +126,10 @@
 
 }
 
+.clear-link {
+  text-decoration: none;
+}
+
 /*Ionic overrided stuff*/
 
 .scroll{

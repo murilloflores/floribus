@@ -25,12 +25,14 @@
 </a>
 
 <div ng-class="{hidden: line.showingNextHoursOnScreen}"> 
-  <span class="line-name"> 
-    {{ line.number }} - {{ line.name }}
-  </span>
-  <span class="line-extra-info"> 
-    Saindo de {{ line.starting_at }}  
+  <a href="#" ng-click="goToLine({{ line.id }})" class='clear-link'>
+    <span class="line-name"> 
+      {{ line.number }} - {{ line.name }} 
     </span>
+    <span class="line-extra-info"> 
+      Saindo de {{ line.starting_at }}  
+    </span>
+  </a>
 </div>
 
 <a href="#" ng-click="addFavorite(line)" ng-class="{hidden: (line.showingNextHoursOnScreen || line.isFavorite)}"> <i class="icon ion-ios-star-outline favorite"> </i> </a>
