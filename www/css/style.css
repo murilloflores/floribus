@@ -131,11 +131,18 @@
 }
 
 .timetable-hour-divider {
-  border-bottom: 1px solid black;
+  color: #00578f;
+  border-bottom: 1px solid #00578f;
 }
 
 .timetable-hours {
+  color: #29a9dd;
   text-align: center;
+}
+
+.line-icon {
+  color: #00578f;
+  font-size: 26px;
 }
 
 .now {
@@ -143,6 +150,13 @@
   margin-top: -35px;
   color: red;
 }
+
+.line-page-info {
+  color: #00578f;
+  font-size: 16px;
+  padding-bottom: 0;
+}
+
 /*Ionic overrided stuff*/
 
 .scroll{
