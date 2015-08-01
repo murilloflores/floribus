@@ -25,7 +25,7 @@
 </a>
 
 <div ng-class="{hidden: line.showingNextHoursOnScreen}"> 
-  <a href="#" ng-click="goToLine({{ line.id }})" class='clear-link'>
+  <a href="#" ng-click="goToLine('{{ line.id }}')" class='clear-link'>
     <span class="line-name"> 
       {{ line.number }} - {{ line.name }} 
     </span>

@@ -14,7 +14,7 @@
 }
 
 .next-hour-box {
-  position: absolute; 
+  position: absolute;
   height: 100%;
   text-decoration: none;
   left:0;
@@ -95,7 +95,7 @@
   font-size: 26px !important;
 }
 
-.view-title { 
+.view-title {
   display: block;
   line-height: 15px;
   margin-top: 5px;
@@ -110,8 +110,8 @@
 
 
 .button-floribus {
-  color: #29a9dd  !important; 
-  border-color: #29a9dd  !important; 
+  color: #29a9dd  !important;
+  border-color: #29a9dd  !important;
 }
 
 .item-content-floribus {
@@ -130,6 +130,19 @@
   text-decoration: none;
 }
 
+.timetable-hour-divider {
+  border-bottom: 1px solid black;
+}
+
+.timetable-hours {
+  text-align: center;
+}
+
+.now {
+  border-bottom: 1px solid red;
+  margin-top: -35px;
+  color: red;
+}
 /*Ionic overrided stuff*/
 
 .scroll{

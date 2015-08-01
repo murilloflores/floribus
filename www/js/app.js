@@ -17,6 +17,10 @@ angular.module('floribus', ['ionic', 'floribus.controllers'])
   });
 })
 
+.config(function($ionicConfigProvider) {
+  $ionicConfigProvider.backButton.text('');
+})
+
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
@@ -49,7 +53,7 @@ angular.module('floribus', ['ionic', 'floribus.controllers'])
 
   .state('intro', {
     url: "/intro",
-    cache: false, 
+    cache: false,
     templateUrl: "intro.html",
     controller: 'IntroCtrl'
   })

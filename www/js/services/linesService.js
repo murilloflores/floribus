@@ -28,6 +28,7 @@ angular.module('floribus.services', []).factory('lines', function($q, $http) {
             }
 
             var line = JSON.parse(lines[i]);
+            line.id = line.id.toString();
             line.isFavorite = false;
             line.renderNextHours = false;
             line.showingNextHoursOnScreen = false;
@@ -46,9 +47,20 @@ angular.module('floribus.services', []).factory('lines', function($q, $http) {
         return deferred.promise;
     };
 
+    var getLine = function(line_id) {
+        for (i = 0; i < allLines.length; i++) {
+            var line  = allLines[i];
+            console.log(line.id);
+            if (line.id == line_id) {
+                return line;
+            }
+        }
+    };
+
     return {
         'getFavoriteLines': getFavoriteLines,
-        'getAllLines': getAllLines
+        'getAllLines': getAllLines,
+        'getLine': getLine
     }
 
 });

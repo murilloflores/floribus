@@ -31,7 +31,7 @@ angular.module('floribus.controllers', ['txx.diacritics', 'floribus.services'])
 })
 
 .controller('FloribusCtrl', function($scope, $state, $stateParams, $http, $ionicScrollDelegate, $timeout, $ionicModal , removeDiacritics, lines) {
-  
+
   $scope.allLines = [];
   $scope.mainLines = [];
   $scope.favoriteLines = [];
@@ -120,12 +120,12 @@ angular.module('floribus.controllers', ['txx.diacritics', 'floribus.services'])
 
     var results = [];
 
-    for (var i = 0; i < $scope.allLines.length; i++) { 
+    for (var i = 0; i < $scope.allLines.length; i++) {
       line = $scope.allLines[i];
       if (matchesSearchQuery(line)){
         results.push(line);
       }
-    }    
+    }
 
     return results;
   };
@@ -158,8 +158,8 @@ angular.module('floribus.controllers', ['txx.diacritics', 'floribus.services'])
   };
 
   function refreshAllLinesHours(){
-    
-    for (var i = 0; i < $scope.allLines.length; i++) { 
+
+    for (var i = 0; i < $scope.allLines.length; i++) {
       line = $scope.allLines[i];
       updatePreviousAndNextHours(line);
     }
@@ -190,45 +190,45 @@ angular.module('floribus.controllers', ['txx.diacritics', 'floribus.services'])
       var otherDaysHours = getOtherDaysHours(line, direction, difference);
 
       if(isPreviousHours){
-        lineHours = otherDaysHours.concat(lineHours); 
+        lineHours = otherDaysHours.concat(lineHours);
       } else {
-        lineHours = lineHours.concat(otherDaysHours); 
+        lineHours = lineHours.concat(otherDaysHours);
       }
 
     }
-    
+
     if (direction == -1) {
       return lineHours.slice(maximum * -1);
     }
 
     return lineHours.slice(0, maximum);
-    
+
   }
 
   function getOtherDaysHours(line, direction, minimun) {
     var day_kinds = ['3', '1', '1', '1', '1', '1', '2'];
-    
+
     var otherDaysHours = [];
     var otherDayCount = 1 ;
 
     while(otherDaysHours.length < minimun){
-      
+
       var currentDate = new Date(new Date().getTime() + (direction * otherDayCount * 24 * 60 * 60 * 1000));
       var currentDayName = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'][currentDate.getDay()];
 
       if(otherDayCount == 1){
         currentDayName = direction == 1 ? 'Amanhã' : 'Ontem';
       }
-      
+
       var day_kind = day_kinds[currentDate.getDay()];
-      
+
       if (!line.timetables.hasOwnProperty(day_kind)) {
         otherDayCount = otherDayCount + 1;
         continue;
       }
 
       var nextHours = angular.copy(line.timetables[day_kind]);
-      
+
       if (direction == -1){
         nextHours = nextHours.reverse();
       }
@@ -246,7 +246,7 @@ angular.module('floribus.controllers', ['txx.diacritics', 'floribus.services'])
     }
 
     if(direction == -1) {
-      return otherDaysHours.slice((minimun * -1)); 
+      return otherDaysHours.slice((minimun * -1));
     }
 
     return otherDaysHours.slice(0, minimun);
@@ -258,7 +258,7 @@ angular.module('floribus.controllers', ['txx.diacritics', 'floribus.services'])
     previous = previous || false;
 
     var day_kinds = ['3', '1', '1', '1', '1', '1', '2'];
-    
+
     var now = new Date();
     var now_str = now.toTimeString().substr(0,5)
     var today_day_kind = getDayKind();
@@ -266,12 +266,12 @@ angular.module('floribus.controllers', ['txx.diacritics', 'floribus.services'])
     if (!line.timetables.hasOwnProperty(today_day_kind)) {
       return [];
     } else {
-      
+
       var nextHours = line.timetables[today_day_kind].filter(
         function(hour){
-          
+
           if(previous){
-            return hour < now_str 
+            return hour < now_str
           }
 
           return hour > now_str
@@ -291,17 +291,17 @@ angular.module('floribus.controllers', ['txx.diacritics', 'floribus.services'])
 
   $scope.addFavorite = function(line) {
     line.isFavorite = true;
-    
+
     var favoriteLines = getFavoriteLinesFromLocalStorage();
     favoriteLines.push(line.id);
     setFavoriteLinesInLocalStorage(favoriteLines);
-    
+
     refreshFavoriteAndMainLines();
   };
 
   $scope.removeFavorite = function(line) {
     line.isFavorite = false;
-    
+
     var favoriteLines = getFavoriteLinesFromLocalStorage();
     favoriteLines = favoriteLines.filter(function(line_id) { return !(line_id === line.id ); } );
     setFavoriteLinesInLocalStorage(favoriteLines);
@@ -310,7 +310,7 @@ angular.module('floribus.controllers', ['txx.diacritics', 'floribus.services'])
   };
 
   function getFavoriteLinesFromLocalStorage() {
-    lines.getFavoriteLines();
+    return lines.getFavoriteLines();
   };
 
   function setFavoriteLinesInLocalStorage(favoriteLines) {
@@ -322,9 +322,9 @@ angular.module('floribus.controllers', ['txx.diacritics', 'floribus.services'])
     tempFavoriteLines = [];
     tempMainLines = [];
 
-    for (var i = 0; i < $scope.allLines.length; i++) { 
+    for (var i = 0; i < $scope.allLines.length; i++) {
       line = $scope.allLines[i];
-      
+
       if(line.isFavorite){
         tempFavoriteLines.push(line);
       } else {
@@ -360,7 +360,7 @@ angular.module('floribus.controllers', ['txx.diacritics', 'floribus.services'])
       var delegate = $ionicScrollDelegate.$getByHandle(scrollId);
       var yPosition = (line.previousHours.length * 65);
       delegate.scrollTo(yPosition);
-      
+
       $timeout(function() {
         line.showingNextHoursOnScreen = true;
       });
@@ -382,13 +382,18 @@ angular.module('floribus.controllers', ['txx.diacritics', 'floribus.services'])
     $state.go('app.line', { id: line_id })
   };
 
-  // Calling main function 
+  // Calling main function
   init();
 
 })
 
-.controller('LineCtrl', function($scope, $stateParams) {
-
+.controller('LineCtrl', function($scope, $stateParams, lines) {
   $scope.id = $stateParams.id;
 
+  function init() {
+    var line = lines.getLine($stateParams.id);
+    $scope.currentLine = line;
+  };
+
+  init();
 })
