@@ -40,72 +40,83 @@
       </div>
  -->
 
-    <div class="row padding line-page-info">
-      <div class="col col-10"> <i class="icon ion-android-bus"></i> </div>
-      <div class="col"> {{ currentLine.number }} - {{ currentLine.name }} </div>
-    </div>
-    <div class="row padding line-page-info">
-      <div class="col col-10"> <i class="icon ion-compass"></i> </div>
-      <div class="col"> Partindo de {{ currentLine.starting_at }} </div>
-    </div>
-    <div class="row padding line-page-info">
-      <div class="col col-10"> <i class="icon ion-cash"></i> </div>
-      <div class="col"> R$ 3,10 </div>
-    </div>
-    <div class="row padding line-page-info">
-      <div class="col col-10"> <i class="icon ion-card"></i> </div>
-      <div class="col"> R$ 2,98 </div>
-    </div>
-
-    <div class="card">
-      <div class="item item-divider">
-        Horários
+      <div class="row padding line-page-info">
+        <div class="col col-10"> <i class="icon ion-android-bus"></i> </div>
+        <div class="col"> {{ currentLine.number }} - {{ currentLine.name }} </div>
+      </div>
+      <div class="row padding line-page-info">
+        <div class="col col-10"> <i class="icon ion-compass"></i> </div>
+        <div class="col"> Partindo de {{ currentLine.starting_at }} </div>
+      </div>
+      <div class="row padding line-page-info">
+        <div class="col col-10"> <i class="icon ion-cash"></i> </div>
+        <div class="col"> R$ 3,10 </div>
+      </div>
+      <div class="row padding line-page-info">
+        <div class="col col-10"> <i class="icon ion-card"></i> </div>
+        <div class="col"> R$ 2,98 </div>
       </div>
 
-      <div class="row">
-        <div class="col col-20 timetable-hour-divider"> 14h </div>
-        <div class="col timetable-hour-divider"> </div>
-      </div>
+      <div class="card">
+        <div class="item item-divider">
+          Horários
+        </div>
 
-      <div class="row">
-        <div class="col col-offset-20 timetable-hours">14:15h<br>14:22h<br>14:30h<br>14:43h</div>
-        <div class="col timetable-hours">14:15h<br>14:22h<br></div>
-        <div class="col timetable-hours">14:15h<br></div>
-      </div>
+        <div class="padding timetable">
 
-      <div class="row">
-        <div class="col col-20 timetable-hour-divider"> 14h </div>
-        <div class="col timetable-hour-divider"> </div>
-      </div>
+          <div class="row header">
+            <div class="col col-20"> Hora </div>
+            <div class="col"> Dia útil</div>
+            <div class="col"> Sábado </div>
+            <div class="col"> Domingo </div>
+          </div>
 
-      <div class="row">
-        <div class="col col-offset-20 timetable-hours">14:15h<br>14:22h<br>14:30h<br>14:43h</div>
-        <div class="col timetable-hours">14:15h<br>14:22h<br></div>
-        <div class="col timetable-hours">14:15h<br></div>
-      </div>
+          <div class="row">
+            <div class="col col-20 timetable-hour-divider "> 14h </div>
+            <div class="col timetable-hour-divider"> </div>
+          </div>
 
-      <div class="row">
-        <div class="col col-20 timetable-hour-divider"> 14h </div>
-        <div class="col timetable-hour-divider"> </div>
-      </div>
 
-      <div class="row">
-        <div class="col col-offset-20 timetable-hours">14:15h<br>14:22h</div>
-        <div class="col timetable-hours">14:15h<br></div>
-        <div class="col timetable-hours"></div>
-      </div>
+          <div class="row">
+            <div class="col col-offset-20">14:15h<br>14:22h<br>14:30h<br>14:43h</div>
+            <div class="col">14:15h<br>14:22h<br></div>
+            <div class="col">14:15h<br></div>
+          </div>
 
-      <div class="row">
-        <div class="col col-20 timetable-hour-divider now"> Agora </div>
-        <div class="col timetable-hour-divider now"> </div>
-      </div>
+          <div class="row">
+            <div class="col col-20 timetable-hour-divider"> 14h </div>
+            <div class="col timetable-hour-divider"> </div>
+          </div>
 
-      <div class="row">
-        <div class="col col-offset-20 timetable-hours">14:35h<br>14:42h</div>
-        <div class="col timetable-hours">14:30h<br></div>
-        <div class="col timetable-hours">14:50h</div>
+          <div class="row">
+            <div class="col col-offset-20">14:15h<br>14:22h<br>14:30h<br>14:43h</div>
+            <div class="col">14:15h<br>14:22h<br></div>
+            <div class="col">14:15h<br></div>
+          </div>
+
+          <div class="row">
+            <div class="col col-20 timetable-hour-divider"> 14h </div>
+            <div class="col timetable-hour-divider"> </div>
+          </div>
+
+          <div class="row">
+            <div class="col col-offset-20">14:15h<br>14:22h</div>
+            <div class="col">14:15h<br></div>
+            <div class="col"></div>
+          </div>
+
+          <div class="row">
+            <div class="col col-20 timetable-hour-divider now"> Agora </div>
+            <div class="col timetable-hour-divider now"> </div>
+          </div>
+
+          <div class="row">
+            <div class="col col-offset-20">14:35h<br>14:42h</div>
+            <div class="col">14:30h<br></div>
+            <div class="col">14:50h</div>
+          </div>
+        </div>
       </div>
-    </div>
     </ion-content>"
 
 </ion-view>

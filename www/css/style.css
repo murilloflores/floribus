@@ -133,11 +133,16 @@
 .timetable-hour-divider {
   color: #00578f;
   border-bottom: 1px solid #00578f;
+  text-align: left;
 }
 
-.timetable-hours {
+.timetable {
   color: #29a9dd;
   text-align: center;
+}
+
+.timetable .header .col:first-child {
+  text-align: left;
 }
 
 .line-icon {
@@ -146,9 +151,9 @@
 }
 
 .now {
-  border-bottom: 1px solid red;
+  border-bottom: 1px solid #ef473a;
   margin-top: -35px;
-  color: red;
+  color: #ef473a;
 }
 
 .line-page-info {
