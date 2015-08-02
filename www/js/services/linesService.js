@@ -80,7 +80,7 @@ angular.module('floribus.services', []).factory('lines', function($q, $http) {
     var getLineTimetableByHour = function(line_id) {
       var timetable = {};
       var line = getLine(line_id);
-      var now = new Date('2015-08-02T22:30:00');
+      var now = new Date();
 
       for(var hour=0; hour<24; hour++){
         var nextHour = (hour + 1) % 24;
@@ -96,6 +96,8 @@ angular.module('floribus.services', []).factory('lines', function($q, $http) {
           timetable[hour][3] = _getTimesFor(line, 3, hour, nowString);
           timetable[hour]['total'] = timetable[hour][1].length + timetable[hour][2].length + timetable[hour][3].length;
           timetable[hour]['label'] = hour;
+          timetable[hour]['now'] = false;
+
 
           timetable[hour+'.1'] = {};
           timetable[hour+'.1'][1] = _getTimesFor(line, 1, nowString, nextHour);
@@ -103,6 +105,7 @@ angular.module('floribus.services', []).factory('lines', function($q, $http) {
           timetable[hour+'.1'][3] = _getTimesFor(line, 3, nowString, nextHour);
           timetable[hour+'.1']['total'] = timetable[hour+'.1'][1].length + timetable[hour+'.1'][2].length + timetable[hour+'.1'][3].length;
           timetable[hour+'.1']['label'] = 'Agora';
+          timetable[hour+'.1']['now'] = true;
         } else {
           var hour = addLeadingZeros(hour);
           var nextHour = addLeadingZeros(nextHour);
@@ -113,6 +116,7 @@ angular.module('floribus.services', []).factory('lines', function($q, $http) {
           timetable[hour][3] = _getTimesFor(line, 3, hour, nextHour);
           timetable[hour]['total'] = timetable[hour][1].length + timetable[hour][2].length + timetable[hour][3].length;
           timetable[hour]['label'] = hour;
+          timetable[hour]['now'] = false;
         }
       }
 
