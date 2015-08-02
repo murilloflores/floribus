@@ -5,40 +5,6 @@
     </ion-nav-title>
 
     <ion-content>
-<!--
-      <div class="list card">
-
-        <div class="item item-divider">
-          Números
-        </div>
-
-        <a href="#" class="item item-icon-left">
-          <i class="icon">15</i>
-          Minutos para o próximo, às 17:36h.
-        </a>
-
-        <a href="#" class="item item-icon-left">
-          <i class="icon">35</i>
-          Minutos entre viagens em dias úteis, em média.
-        </a>
-
-        <a href="#" class="item item-icon-left">
-          <i class="icon">10</i>
-          Horários ainda hoje.
-        </a>
-
-        <a href="#" class="item item-icon-left">
-          <i class="icon">23:31</i>
-          É o último horário para hoje.
-        </a>
-
-        <a href="#" class="item item-icon-left">
-          <i class="icon">06:56</i>
-          É o primeiro horário de amanhã
-        </a>
-
-      </div>
- -->
 
       <div class="row padding line-page-info">
         <div class="col col-10"> <i class="icon ion-android-bus"></i> </div>
@@ -48,6 +14,7 @@
         <div class="col col-10"> <i class="icon ion-compass"></i> </div>
         <div class="col"> Partindo de {{ currentLine.starting_at }} </div>
       </div>
+      <!--
       <div class="row padding line-page-info">
         <div class="col col-10"> <i class="icon ion-cash"></i> </div>
         <div class="col"> R$ 3,10 </div>
@@ -56,6 +23,7 @@
         <div class="col col-10"> <i class="icon ion-card"></i> </div>
         <div class="col"> R$ 2,98 </div>
       </div>
+      -->
 
       <div class="card">
         <div class="item item-divider">
@@ -71,41 +39,20 @@
             <div class="col"> Domingo </div>
           </div>
 
-          <div class="row">
-            <div class="col col-20 timetable-hour-divider "> 14h </div>
-            <div class="col timetable-hour-divider"> </div>
+          <div ng-repeat="(hour, tables) in currentLineTimetable">
+            <div class="row" ng-if="tables['total'] > 0">
+              <div class="col col-20 timetable-hour-divider "> {{ hour }} </div>
+              <div class="col timetable-hour-divider"> </div>
+            </div>
+
+            <div class="row" ng-if="tables['total'] > 0">
+              <div class="col col-offset-20" ng-bind-html="tables[1].join('<br>')"></div>
+              <div class="col" ng-bind-html="tables[2].join('<br>')"></div>
+              <div class="col" ng-bind-html="tables[3].join('<br>')"></div>
+            </div>
           </div>
 
-
-          <div class="row">
-            <div class="col col-offset-20">14:15h<br>14:22h<br>14:30h<br>14:43h</div>
-            <div class="col">14:15h<br>14:22h<br></div>
-            <div class="col">14:15h<br></div>
-          </div>
-
-          <div class="row">
-            <div class="col col-20 timetable-hour-divider"> 14h </div>
-            <div class="col timetable-hour-divider"> </div>
-          </div>
-
-          <div class="row">
-            <div class="col col-offset-20">14:15h<br>14:22h<br>14:30h<br>14:43h</div>
-            <div class="col">14:15h<br>14:22h<br></div>
-            <div class="col">14:15h<br></div>
-          </div>
-
-          <div class="row">
-            <div class="col col-20 timetable-hour-divider"> 14h </div>
-            <div class="col timetable-hour-divider"> </div>
-          </div>
-
-          <div class="row">
-            <div class="col col-offset-20">14:15h<br>14:22h</div>
-            <div class="col">14:15h<br></div>
-            <div class="col"></div>
-          </div>
-
-          <div class="row">
+          <!-- <div class="row">
             <div class="col col-20 timetable-hour-divider now"> Agora </div>
             <div class="col timetable-hour-divider now"> </div>
           </div>
@@ -114,7 +61,9 @@
             <div class="col col-offset-20">14:35h<br>14:42h</div>
             <div class="col">14:30h<br></div>
             <div class="col">14:50h</div>
-          </div>
+          </div> -->
+
+
         </div>
       </div>
     </ion-content>"

@@ -393,6 +393,7 @@ angular.module('floribus.controllers', ['txx.diacritics', 'floribus.services'])
   function init() {
     var line = lines.getLine($stateParams.id);
     $scope.currentLine = line;
+    $scope.currentLineTimetable = lines.getLineTimetableByHour(line.id);
   };
 
   init();
