@@ -56,13 +56,13 @@ angular.module('floribus.services', []).factory('lines', function($q, $http) {
         }
     };
 
-    var _getTimesFor = function(line, day_kind, desired_hour) {
+    var _getTimesFor = function(line, day_kind, start, end) {
       var times = [];
 
       if (line.timetables.hasOwnProperty(day_kind)) {
         var times = line.timetables[day_kind].filter(
           function(hour){
-            return hour.startsWith(desired_hour);
+            return start <= hour && hour < end;
           }
         );
       }
@@ -70,19 +70,50 @@ angular.module('floribus.services', []).factory('lines', function($q, $http) {
       return times;
     };
 
+    var addLeadingZeros = function(hour) {
+      if(hour < 10){
+        return '0'+hour;
+      }
+      return hour.toString();
+    }
+
     var getLineTimetableByHour = function(line_id) {
       var timetable = {};
       var line = getLine(line_id);
+      var now = new Date('2015-08-02T22:30:00');
 
       for(var hour=0; hour<24; hour++){
-        if(hour < 10) hour = "0"+hour;
-        hour = hour.toString();
+        var nextHour = (hour + 1) % 24;
 
-        timetable[hour] = {};
-        timetable[hour][1] = _getTimesFor(line, 1, hour);
-        timetable[hour][2] = _getTimesFor(line, 2, hour);
-        timetable[hour][3] = _getTimesFor(line, 3, hour);
-        timetable[hour]['total'] = timetable[hour][1].length + timetable[hour][2].length + timetable[hour][3].length;
+        if(hour == now.getHours()){
+          var hour = addLeadingZeros(hour);
+          var nowString = now.toTimeString().slice(0,5);
+          var nextHour = addLeadingZeros(nextHour);
+
+          timetable[hour] = {};
+          timetable[hour][1] = _getTimesFor(line, 1, hour, nowString);
+          timetable[hour][2] = _getTimesFor(line, 2, hour, nowString);
+          timetable[hour][3] = _getTimesFor(line, 3, hour, nowString);
+          timetable[hour]['total'] = timetable[hour][1].length + timetable[hour][2].length + timetable[hour][3].length;
+          timetable[hour]['label'] = hour;
+
+          timetable[hour+'.1'] = {};
+          timetable[hour+'.1'][1] = _getTimesFor(line, 1, nowString, nextHour);
+          timetable[hour+'.1'][2] = _getTimesFor(line, 2, nowString, nextHour);
+          timetable[hour+'.1'][3] = _getTimesFor(line, 3, nowString, nextHour);
+          timetable[hour+'.1']['total'] = timetable[hour+'.1'][1].length + timetable[hour+'.1'][2].length + timetable[hour+'.1'][3].length;
+          timetable[hour+'.1']['label'] = 'Agora';
+        } else {
+          var hour = addLeadingZeros(hour);
+          var nextHour = addLeadingZeros(nextHour);
+
+          timetable[hour] = {};
+          timetable[hour][1] = _getTimesFor(line, 1, hour, nextHour);
+          timetable[hour][2] = _getTimesFor(line, 2, hour, nextHour);
+          timetable[hour][3] = _getTimesFor(line, 3, hour, nextHour);
+          timetable[hour]['total'] = timetable[hour][1].length + timetable[hour][2].length + timetable[hour][3].length;
+          timetable[hour]['label'] = hour;
+        }
       }
 
       return timetable;

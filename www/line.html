@@ -41,7 +41,7 @@
 
           <div ng-repeat="(hour, tables) in currentLineTimetable">
             <div class="row" ng-if="tables['total'] > 0">
-              <div class="col col-20 timetable-hour-divider "> {{ hour }} </div>
+              <div class="col col-20 timetable-hour-divider "> {{ tables['label'] }} </div>
               <div class="col timetable-hour-divider"> </div>
             </div>
 
