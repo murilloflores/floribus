@@ -1,0 +1,70 @@
+<ion-view title="Linha">
+
+    <ion-nav-title>
+      <span> {{ currentLine.number }} - {{ currentLine.name }} </span>
+    </ion-nav-title>
+
+    <ion-content  scroll-detector>
+
+<!--       <div class="row header fixed-header timetable" id="fixed-line-header" ng-show="displayLineHeader">
+        <div class="col col-20"> Hora </div>
+        <div class="col"> Dia útil</div>
+        <div class="col"> Sábado </div>
+        <div class="col"> Domingo </div>
+      </div> -->
+
+      <div class="row padding line-page-info">
+        <div class="col col-10"> <i class="icon ion-android-bus"></i> </div>
+        <div class="col"> {{ currentLine.number }} - {{ currentLine.name }} </div>
+      </div>
+      <div class="row padding line-page-info">
+        <div class="col col-10"> <i class="icon ion-compass"></i> </div>
+        <div class="col"> Partindo de {{ currentLine.starting_at }} </div>
+      </div>
+      <!--
+      <div class="row padding line-page-info">
+        <div class="col col-10"> <i class="icon ion-cash"></i> </div>
+        <div class="col"> R$ 3,10 </div>
+      </div>
+      <div class="row padding line-page-info">
+        <div class="col col-10"> <i class="icon ion-card"></i> </div>
+        <div class="col"> R$ 2,98 </div>
+      </div>
+      -->
+
+      <div class="card">
+        <div class="item item-divider">
+          Horários
+        </div>
+
+        <div class="padding timetable">
+
+          <div class="row header" id="floating-line-header">
+            <div class="col col-20"> Hora </div>
+            <div class="col"> Dia útil</div>
+            <div class="col"> Sábado </div>
+            <div class="col"> Domingo </div>
+          </div>
+
+          <br />
+
+          <div ng-repeat="(hour, tables) in currentLineTimetable" class="line-hour-block">
+            <div class="row row-line-item" ng-if="tables['total'] > 0">
+              <div class="col col-20 timetable-hour-divider" ng-class="tables['now'] ? 'now' : ''"> {{ tables['label'] }} </div>
+              <div class="col timetable-hour-divider" ng-class="tables['now'] ? 'now' : ''"> </div>
+            </div>
+
+            <div class="row row-line-item" ng-if="tables['total'] > 0">
+              <div class="col col-offset-20 col-line-item" ng-bind-html="tables[1].join('<br>')"></div>
+              <div class="col col-line-item col-bold" ng-bind-html="tables[2].join('<br>')"></div>
+              <div class="col col-line-item" ng-bind-html="tables[3].join('<br>')"></div>
+            </div>
+          </div>
+
+          <br />
+
+        </div>
+      </div>
+    </ion-content>"
+
+</ion-view>

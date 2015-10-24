@@ -17,6 +17,10 @@ angular.module('floribus', ['ionic', 'floribus.controllers'])
   });
 })
 
+.config(function($ionicConfigProvider) {
+  $ionicConfigProvider.backButton.text('');
+})
+
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
@@ -37,16 +41,25 @@ angular.module('floribus', ['ionic', 'floribus.controllers'])
     }
   })
 
+  .state('app.line', {
+    url: '/line/:id',
+    views: {
+      'menuContent': {
+        templateUrl: 'line.html',
+        controller: 'LineCtrl'
+      }
+    }
+  })
+
   .state('intro', {
     url: "/intro",
-    cache: false, 
+    cache: false,
     templateUrl: "intro.html",
     controller: 'IntroCtrl'
   })
 
   // if none of the above states are matched, use this as the fallback
   var firstUsage = JSON.parse(window.localStorage['firstUsage'] || 'true');
-  console.log(firstUsage);
   if (firstUsage ){
     $urlRouterProvider.otherwise('/intro');
   } else {

@@ -14,7 +14,7 @@
 }
 
 .next-hour-box {
-  position: absolute; 
+  position: absolute;
   height: 100%;
   text-decoration: none;
   left:0;
@@ -95,7 +95,7 @@
   font-size: 26px !important;
 }
 
-.view-title { 
+.view-title {
   display: block;
   line-height: 15px;
   margin-top: 5px;
@@ -110,8 +110,8 @@
 
 
 .button-floribus {
-  color: #29a9dd  !important; 
-  border-color: #29a9dd  !important; 
+  color: #29a9dd  !important;
+  border-color: #29a9dd  !important;
 }
 
 .item-content-floribus {
@@ -124,6 +124,71 @@
 
 .intro-slide-tip {
 
+}
+
+.clear-link {
+  text-decoration: none;
+}
+
+.timetable-hour-divider {
+  color: #00578f;
+  border-bottom: 1px solid #00578f;
+  text-align: left;
+  padding-bottom: 0;
+  padding-top: 0;
+}
+
+.row-line-item {
+  padding-bottom: 0;
+  padding-top: 0;
+}
+
+.col-line-item {
+  padding-bottom: 0;
+  padding-top: 10px;
+}
+
+.col-bold {
+  font-weight: bold;
+}
+
+.line-hour-block {
+  margin-top: -15px;
+}
+
+.fixed-header {
+  position: absolute;
+  top: 100px;
+  left: 20px;
+  width: 280px;
+  z-index: 100;
+  background-color: white;
+}
+
+.timetable {
+  color: #29a9dd;
+  text-align: center;
+}
+
+.timetable .header .col:first-child {
+  text-align: left;
+}
+
+.line-icon {
+  color: #00578f;
+  font-size: 26px;
+}
+
+.now {
+  border-bottom: 1px solid #ef473a;
+  /*margin-top: -35px;*/
+  color: #ef473a;
+}
+
+.line-page-info {
+  color: #00578f;
+  font-size: 16px;
+  padding-bottom: 0;
 }
 
 /*Ionic overrided stuff*/
