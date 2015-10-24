@@ -134,6 +134,35 @@
   color: #00578f;
   border-bottom: 1px solid #00578f;
   text-align: left;
+  padding-bottom: 0;
+  padding-top: 0;
+}
+
+.row-line-item {
+  padding-bottom: 0;
+  padding-top: 0;
+}
+
+.col-line-item {
+  padding-bottom: 0;
+  padding-top: 10px;
+}
+
+.col-bold {
+  font-weight: bold;
+}
+
+.line-hour-block {
+  margin-top: -15px;
+}
+
+.fixed-header {
+  position: absolute;
+  top: 100px;
+  left: 20px;
+  width: 280px;
+  z-index: 100;
+  background-color: white;
 }
 
 .timetable {
@@ -152,7 +181,7 @@
 
 .now {
   border-bottom: 1px solid #ef473a;
-  margin-top: -35px;
+  /*margin-top: -35px;*/
   color: #ef473a;
 }
 

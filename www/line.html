@@ -4,7 +4,14 @@
       <span> {{ currentLine.number }} - {{ currentLine.name }} </span>
     </ion-nav-title>
 
-    <ion-content>
+    <ion-content  scroll-detector>
+
+<!--       <div class="row header fixed-header timetable" id="fixed-line-header" ng-show="displayLineHeader">
+        <div class="col col-20"> Hora </div>
+        <div class="col"> Dia útil</div>
+        <div class="col"> Sábado </div>
+        <div class="col"> Domingo </div>
+      </div> -->
 
       <div class="row padding line-page-info">
         <div class="col col-10"> <i class="icon ion-android-bus"></i> </div>
@@ -32,37 +39,29 @@
 
         <div class="padding timetable">
 
-          <div class="row header">
+          <div class="row header" id="floating-line-header">
             <div class="col col-20"> Hora </div>
             <div class="col"> Dia útil</div>
             <div class="col"> Sábado </div>
             <div class="col"> Domingo </div>
           </div>
 
-          <div ng-repeat="(hour, tables) in currentLineTimetable">
-            <div class="row" ng-if="tables['total'] > 0">
+          <br />
+
+          <div ng-repeat="(hour, tables) in currentLineTimetable" class="line-hour-block">
+            <div class="row row-line-item" ng-if="tables['total'] > 0">
               <div class="col col-20 timetable-hour-divider" ng-class="tables['now'] ? 'now' : ''"> {{ tables['label'] }} </div>
               <div class="col timetable-hour-divider" ng-class="tables['now'] ? 'now' : ''"> </div>
             </div>
 
-            <div class="row" ng-if="tables['total'] > 0">
-              <div class="col col-offset-20" ng-bind-html="tables[1].join('<br>')"></div>
-              <div class="col" ng-bind-html="tables[2].join('<br>')"></div>
-              <div class="col" ng-bind-html="tables[3].join('<br>')"></div>
+            <div class="row row-line-item" ng-if="tables['total'] > 0">
+              <div class="col col-offset-20 col-line-item" ng-bind-html="tables[1].join('<br>')"></div>
+              <div class="col col-line-item col-bold" ng-bind-html="tables[2].join('<br>')"></div>
+              <div class="col col-line-item" ng-bind-html="tables[3].join('<br>')"></div>
             </div>
           </div>
 
-          <!-- <div class="row">
-            <div class="col col-20 timetable-hour-divider now"> Agora </div>
-            <div class="col timetable-hour-divider now"> </div>
-          </div>
-
-          <div class="row">
-            <div class="col col-offset-20">14:35h<br>14:42h</div>
-            <div class="col">14:30h<br></div>
-            <div class="col">14:50h</div>
-          </div> -->
-
+          <br />
 
         </div>
       </div>

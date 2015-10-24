@@ -398,3 +398,29 @@ angular.module('floribus.controllers', ['txx.diacritics', 'floribus.services'])
 
   init();
 })
+
+// .directive('scrollDetector', function($window, $ionicScrollDelegate) {
+//   return {
+//     restrict : 'A',
+
+//     link: function(scope, element, attrs) {
+      
+//       var scrollableElement = element[0].querySelector('#fixed-line-header');
+      
+//       element.on('scroll', function() {
+//         var scrollView = $ionicScrollDelegate.getScrollView(scrollableElement);
+        
+//         var scrollPosition = Math.ceil(scrollView.__scrollTop);
+//         scrollableElement.style.top = scrollPosition + "px";
+
+//         if(scrollPosition > 120) {
+//           scope.displayLineHeader = true;
+//         } else {
+//           scope.displayLineHeader = false;
+//         }
+
+//         scope.$apply();
+//       });
+//     }
+//   };
+// })
