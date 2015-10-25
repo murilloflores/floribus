@@ -53,11 +53,10 @@
               <div class="col col-20 timetable-hour-divider" ng-class="tables['now'] ? 'now' : ''"> {{ tables['label'] }} </div>
               <div class="col timetable-hour-divider" ng-class="tables['now'] ? 'now' : ''"> </div>
             </div>
-
             <div class="row row-line-item" ng-if="tables['total'] > 0">
-              <div class="col col-offset-20 col-line-item" ng-bind-html="tables[1].join('<br>')"></div>
-              <div class="col col-line-item col-bold" ng-bind-html="tables[2].join('<br>')"></div>
-              <div class="col col-line-item" ng-bind-html="tables[3].join('<br>')"></div>
+              <div class="col col-offset-20 col-line-item" ng-class="dayKind == 1 ? 'col-bold' : ''" ng-bind-html="tables[1].join('<br>')"></div>
+              <div class="col col-line-item" ng-class="dayKind == 2 ? 'col-bold' : ''" ng-bind-html="tables[2].join('<br>')"></div>
+              <div class="col col-line-item" ng-class="dayKind == 3 ? 'col-bold' : ''" ng-bind-html="tables[3].join('<br>')"></div>
             </div>
           </div>
 

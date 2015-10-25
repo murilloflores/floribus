@@ -379,7 +379,7 @@ angular.module('floribus.controllers', ['txx.diacritics', 'floribus.services'])
   };
 
   $scope.goToLine = function(line_id) {
-    $state.go('app.line', { id: line_id })
+    $state.go('app.line', { id: line_id, dayKind: $scope.dayKind })
   };
 
   // Calling main function
@@ -389,6 +389,7 @@ angular.module('floribus.controllers', ['txx.diacritics', 'floribus.services'])
 
 .controller('LineCtrl', function($scope, $stateParams, lines) {
   $scope.id = $stateParams.id;
+  $scope.dayKind = $stateParams.dayKind;
 
   function init() {
     var line = lines.getLine($stateParams.id);

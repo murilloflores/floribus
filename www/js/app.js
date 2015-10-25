@@ -42,7 +42,7 @@ angular.module('floribus', ['ionic', 'floribus.controllers'])
   })
 
   .state('app.line', {
-    url: '/line/:id',
+    url: '/line/:id/:dayKind',
     views: {
       'menuContent': {
         templateUrl: 'line.html',
